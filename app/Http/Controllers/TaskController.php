@@ -36,9 +36,18 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-       dd($request);
-    //   $validated = $request->validated();
 
+        $task = new Task;
+        $task->name = $request->name;
+        // $task->save();
+        // return redirect()->back();
+        $request->User()->tasks()->save($task);
+
+
+        // $request->User()->tasks()->create([
+        //     'name' => $request->name
+        // ]);
+        return redirect()->back();
     }
 
     /**
