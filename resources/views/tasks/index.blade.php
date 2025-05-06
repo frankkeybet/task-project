@@ -9,7 +9,7 @@
    @endforeach
  
 @endif
-   
+   <div class="row mb-3">
 <div class="card">
   <div class="card-header">
   My Tasks 
@@ -36,7 +36,36 @@
 </form>
 
   </div>
+  </div>
 </div>
 
+
+<div class="row">
+<div class="card">
+<table class="table">
+  <thead>
+<tr>
+   <th scope="col">Id</th>
+   <th scope="col">Name</th>
+   <th scope="col">Created Date</th>
+</tr>
+  </thead>
+  <tbody>
+
+  @if($tasks->count())
+
+  @foreach($tasks as $task)
+    <tr>
+   <tr>
+    <td>{{$task->id}}</td>
+    <td>{{$task->name}}</td>
+    <td>{{$task->created_at->diffForHumans()}}</td>
+   </tr>
+   @endforeach
+   @endif
+  </tbody>
+</table>
+</div>
+</div>
 
 @endsection
