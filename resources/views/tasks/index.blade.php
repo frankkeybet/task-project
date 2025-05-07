@@ -4,7 +4,7 @@
 
 @if($errors->any())
    
-  @foreach($error->all() as $error)
+  @foreach($errors->all() as $error)
   {{$error}}
    @endforeach
  
@@ -23,7 +23,7 @@
     <label for="name" class="form-label">Task</label>
     <input name="name" type="text" class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="nameInputFeedback">
    @error('name')
-    <div id="nameInputFeedbac" class="form-text invalid-feedback">
+    <div id="nameInputFeedback" class="form-text invalid-feedback">
       {{$message}}
     </div>
     @enderror
@@ -42,29 +42,47 @@
 
 <div class="row">
 <div class="card">
+
+@if($tasks->count())
 <table class="table">
   <thead>
 <tr>
    <th scope="col">Id</th>
    <th scope="col">Name</th>
    <th scope="col">Created Date</th>
+   <th scope="col">Delete</th>
 </tr>
   </thead>
   <tbody>
 
-  @if($tasks->count())
+
 
   @foreach($tasks as $task)
-    <tr>
+    
    <tr>
     <td>{{$task->id}}</td>
     <td>{{$task->name}}</td>
     <td>{{$task->created_at->diffForHumans()}}</td>
+    <td>
+      <form action="{{route('tasks.destroy', $task->id)}}" method="post">
+      @csrf
+      @method('DELETE')
+      <button type="submit" class="btn btn-danger">Delete</button>
+
+      </form>
+    </td>
    </tr>
    @endforeach
-   @endif
+  
   </tbody>
 </table>
+
+@else
+
+<h1 class="text-center mt-2 mb-2">
+  No Tasks Found
+</h1>
+@endif
 </div>
 </div>
 
